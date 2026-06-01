@@ -19,3 +19,11 @@ RUN pip install -r requirements.txt
 
 # Copy project
 COPY . /app/
+
+# Run collectstatic during build
+RUN python manage.py collectstatic --no-input
+
+EXPOSE 10000
+
+# Run migrations and start gunicorn
+CMD python manage.py migrate && gunicorn lead_gen_project.wsgi:application --bind 0.0.0.0:${PORT:-10000}
