@@ -8,3 +8,5 @@ ddgs>=9.14.0
 pydantic>=2.7.0
 python-dotenv>=1.0.1
 gunicorn>=22.0.0
+whitenoise>=6.5.0
+langgraph>=0.1.0
