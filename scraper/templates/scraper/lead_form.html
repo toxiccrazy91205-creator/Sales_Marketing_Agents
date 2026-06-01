@@ -1,0 +1,57 @@
+{% extends 'scraper/base.html' %}
+
+{% block content %}
+<div class="section-dark d-flex align-items-center" style="min-height: calc(100vh - 73px);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <div class="text-center mb-4">
+                    <h1 class="display-hero text-white mb-2" style="font-size: 36px;">Discovery Protocol</h1>
+                    <p style="color: var(--hairline); font-size: 15px;">Configure your search parameters to initiate the AI agent.</p>
+                </div>
+                
+                <div class="cohere-form-card">
+                    <form method="post" action="{% url 'ingest' %}">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="industry" class="form-label">Industry</label>
+                                <input type="text" class="form-control" id="industry" name="industry" placeholder="e.g. Artificial Intelligence" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="e.g. San Francisco, CA" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="company_size" class="form-label">Company Size</label>
+                            <select class="form-select" id="company_size" name="company_size" required>
+                                <option value="">Select size...</option>
+                                <option value="1-10 employees">1-10 employees (Startup)</option>
+                                <option value="11-50 employees">11-50 employees (Small)</option>
+                                <option value="51-200 employees">51-200 employees (Medium)</option>
+                                <option value="201-1000 employees">201-1000 employees (Mid-Market)</option>
+                                <option value="1000+ employees">1000+ employees (Enterprise)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="target_audience" class="form-label">Target Audience / ICP</label>
+                            <input type="text" class="form-control" id="target_audience" name="target_audience" placeholder="e.g. B2B SaaS companies" required>
+                        </div>
+                        
+                        <div>
+                            <button type="submit" class="button-primary w-100 text-center py-2" style="font-size: 16px;">
+                                Initialize Agentic Discovery
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

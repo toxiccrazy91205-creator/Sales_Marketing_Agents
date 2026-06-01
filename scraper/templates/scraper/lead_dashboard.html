@@ -1,0 +1,108 @@
+{% extends 'scraper/base.html' %}
+
+{% block content %}
+<!-- Discovery Form Section -->
+<div class="section-dark">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <h1 class="display-hero text-white mb-2" style="font-size: 36px;">Discovery Protocol</h1>
+                <p style="color: var(--hairline); font-size: 15px; max-width: 90%;">Configure your search parameters to initiate the AI agent and instantly find new qualified leads.</p>
+            </div>
+            <div class="col-lg-7">
+                <div class="cohere-form-card p-4">
+                    <form method="post" action="{% url 'ingest' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="industry" class="form-label">Industry</label>
+                                <input type="text" class="form-control" id="industry" name="industry" placeholder="e.g. AI" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="e.g. San Francisco" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="company_size" class="form-label">Company Size</label>
+                                <select class="form-select" id="company_size" name="company_size" required>
+                                    <option value="">Select size...</option>
+                                    <option value="1-10 employees">1-10 employees</option>
+                                    <option value="11-50 employees">11-50 employees</option>
+                                    <option value="51-200 employees">51-200 employees</option>
+                                    <option value="201-1000 employees">201-1000 employees</option>
+                                    <option value="1000+ employees">1000+ employees</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="target_audience" class="form-label">Target Audience</label>
+                                <input type="text" class="form-control" id="target_audience" name="target_audience" placeholder="e.g. B2B SaaS" required>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="button-primary w-100 text-center py-2" style="font-size: 16px;">
+                                Initialize Agentic Discovery
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Output Section -->
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="display-hero mb-0" style="font-size: 32px; color: var(--cohere-black);">Qualified Leads</h2>
+            <p style="color: var(--muted-slate); font-size: 14px; margin-top: 4px;">Discovered profiles sorted by AI qualification score.</p>
+        </div>
+    </div>
+
+    {% if leads %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-5">
+        {% for lead in leads %}
+        <div class="col">
+            <div class="card h-100 cohere-card p-3 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title mb-0" style="font-size: 20px; font-weight: 500; font-family: var(--font-body);">{{ lead.company_name }}</h5>
+                    {% if lead.qualification_score == 'High' %}
+                        <span class="chip-coral">High</span>
+                    {% elif lead.qualification_score == 'Medium' %}
+                        <span class="button-pill-outline">Medium</span>
+                    {% else %}
+                        <span class="chip-error">Low</span>
+                    {% endif %}
+                </div>
+                
+                <div class="mono-label mb-3">
+                    {{ lead.industry }} &bull; {{ lead.location }}
+                </div>
+                
+                <p class="card-text mb-3" style="color: var(--ink); font-size: 14px;">{{ lead.description_summary }}</p>
+                
+                <div class="cohere-card-stone p-3 rounded mt-auto mb-3" style="font-size: 13px;">
+                    <span class="mono-label d-block mb-1" style="color: var(--ink);">AI Reasoning</span>
+                    <div style="color: var(--ink); line-height: 1.5; white-space: normal;">{{ lead.reasoning }}</div>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center pt-3" style="border-top: 1px solid var(--card-border);">
+                    <span class="mono-label">{{ lead.pipeline_status }}</span>
+                    {% if lead.website_url %}
+                        <a href="{{ lead.website_url }}" target="_blank" class="button-secondary">Website</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5 mt-3 mx-auto" style="max-width: 600px; padding: 60px 20px;">
+        <h3 class="mb-2" style="color: var(--cohere-black); font-size: 24px;">No leads discovered yet</h3>
+        <p style="color: var(--muted-slate); font-size: 15px; margin-bottom: 24px;">Use the form above to run your first agentic discovery workflow and populate the dashboard.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

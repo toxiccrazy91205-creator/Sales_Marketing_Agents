@@ -1,0 +1,10 @@
+Django>=5.0,<6.0
+langgraph>=0.0.60
+langchain>=0.2.0
+langchain-community>=0.2.0
+langchain-openai>=0.1.0
+duckduckgo-search>=5.3.1
+ddgs>=9.14.0
+pydantic>=2.7.0
+python-dotenv>=1.0.1
+gunicorn>=22.0.0

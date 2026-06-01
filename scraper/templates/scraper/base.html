@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Lead Gen | Cohere</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --cohere-black: #000000;
+            --near-black: #17171c;
+            --deep-green: #003c33;
+            --dark-navy: #071829;
+            --action-blue: #1863dc;
+            --coral: #ff7759;
+            --soft-coral: #ffad9b;
+            --canvas-white: #ffffff;
+            --soft-stone: #eeece7;
+            --card-border: #e5e7eb;
+            --ink: #212121;
+            --muted-slate: #93939f;
+            --hairline: #d9d9dd;
+            
+            --font-display: 'Space Grotesk', system-ui, sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body { 
+            font-family: var(--font-body); 
+            background-color: var(--canvas-white); 
+            color: var(--ink);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: var(--font-display);
+            color: var(--cohere-black);
+            letter-spacing: -1.2px;
+            font-weight: 400;
+        }
+
+        .navbar {
+            background-color: var(--canvas-white) !important;
+            border-bottom: 1px solid var(--hairline);
+            padding: 16px 0;
+        }
+
+        .navbar-brand { 
+            font-size: 24px;
+            letter-spacing: -1px;
+            font-weight: 500;
+        }
+
+        .nav-link {
+            color: var(--ink) !important;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: var(--action-blue) !important;
+        }
+
+        /* Buttons */
+        .button-primary {
+            background-color: var(--near-black);
+            color: var(--canvas-white);
+            border-radius: 32px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            transition: opacity 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button-primary:hover {
+            opacity: 0.85;
+            color: var(--canvas-white);
+        }
+
+        .button-secondary {
+            background-color: transparent;
+            color: var(--action-blue);
+            text-decoration: underline;
+            border: none;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        .button-pill-outline {
+            border: 1px solid var(--card-border);
+            border-radius: 30px;
+            padding: 6px 16px;
+            background: transparent;
+            color: var(--ink);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .chip-coral {
+            background-color: var(--coral);
+            color: var(--cohere-black);
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            border: none;
+        }
+
+        .chip-error {
+            background-color: #f8d7da;
+            color: #b30000;
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid #f5c2c7;
+        }
+
+        /* Cards */
+        .cohere-card { 
+            border-radius: 16px; 
+            border: 1px solid var(--card-border);
+            box-shadow: none;
+            background-color: var(--canvas-white);
+        }
+
+        .cohere-card-stone {
+            background-color: var(--soft-stone);
+            border: none;
+        }
+
+        .cohere-form-card {
+            border-radius: 22px;
+            background-color: var(--canvas-white);
+            border: 1px solid var(--card-border);
+            padding: 32px;
+        }
+
+        /* Inputs */
+        .form-control, .form-select {
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 15px;
+            background-color: var(--canvas-white);
+            color: var(--ink);
+        }
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 0 0 2px var(--action-blue);
+            border-color: var(--action-blue);
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        /* Semantic / Typographic */
+        .mono-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.28px;
+            color: var(--muted-slate);
+        }
+
+        .display-hero {
+            font-size: 48px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+
+        .section-dark {
+            background-color: var(--deep-green);
+            color: var(--canvas-white);
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg mb-0 sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">Agentic Lead Gen</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Agent Console</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0">
+        {% if messages %}
+            <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="border-radius: 8px;">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
